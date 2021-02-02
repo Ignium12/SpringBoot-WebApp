@@ -42,7 +42,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
 
     public void save(Employee employee) {
-        employeeRepository.save(employee);
+
+        if(employeeRepository.existsById(employee.getId())){
+            employeeRepository.save(employee);
+        } else {
+            throw new RuntimeException("The id you want to update (" + employee.getId() + ") does not exist in the database");
+        }
+
     }
 
     @Override
